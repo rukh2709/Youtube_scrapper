@@ -1,3 +1,4 @@
+import flask
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS,cross_origin
 import logging
@@ -5,6 +6,7 @@ import os
 import requests
 import re
 import pandas as pd
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 logging.basicConfig(filename=os.path.join(BASE_DIR, "scraper_logs.log") , level=logging.INFO)
@@ -63,15 +65,15 @@ def details():
 				vid_viewcounts.append(match1[0])
 
 			logging.info("titles...")
-			titles = vid_titles[0:10]
+			titles = vid_titles[0:5]
 			logging.info("thumbnails...")
 			thumbnails = list(dict.fromkeys(vid_thumbnails))
 			logging.info("links...")
-			links = vid_links[0:10]
+			links = vid_links[0:5]
 			logging.info("viewcounts...")
-			viewcounts=vid_viewcounts[0:20:2]
+			viewcounts=vid_viewcounts[0:10:2]
 			logging.info("age...")
-			ages=vid_ages[0:20:2]
+			ages=vid_ages[0:10:2]
 
 			details_list=[]
 
@@ -94,3 +96,5 @@ def details():
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=8000, debug=True)
+	# app.run(host='127.0.0.1', port=8000, debug=True)
+	
